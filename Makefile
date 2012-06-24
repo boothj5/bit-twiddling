@@ -2,13 +2,10 @@ CC = gcc
 WARNS = -Werror -Wall -Wextra -Wno-unused-parameter -Wno-unused-but-set-variable \
 	-Wno-unused-result
 CFLAGS = -O3 $(WARNS)
-OBJS = binary.o main.o
+OBJS = main.o
 
 main: $(OBJS)
-	$(CC) -o binary $(OBJS)
-
-binary.o: binary.h
-main.o: binary.h
+	$(CC) -o main $(OBJS)
 
 .PHONY: clean
 clean:

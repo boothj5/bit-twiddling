@@ -1,8 +1,11 @@
 #include <stdio.h>
 
-#include "binary.h"
+#define BYTE signed char
+#define BOOLEAN int
+#define TRUE 1
+#define FALSE 0
 
-int is_power_of_two(BYTE byte)
+BOOLEAN is_power_of_two(BYTE byte)
 {
     // x & (x-1)
     BYTE hack = byte & (byte - 0x01);
@@ -10,12 +13,20 @@ int is_power_of_two(BYTE byte)
     return (hack == 0x00);
 }
 
-int all_bits_same(BYTE byte)
+BOOLEAN all_bits_same(BYTE byte)
 {
     // x & (x+1)
     BYTE hack = byte & (byte + 0x01);
 
     return (hack == 0x00);
+}
+
+BYTE isolate_rightmost(BYTE byte)
+{
+    // x & (-x)
+    BYTE hack = byte & ( -byte);
+
+    return hack;
 }
 
 int main(void)
@@ -26,6 +37,7 @@ int main(void)
         printf("Choose a test:\n");
         printf("    1: Power of 2.\n");
         printf("    2: 2^n -1 (all bits same).\n");
+        printf("    3: Isolate rightmost bit.\n");
         printf("\n");
         printf("> ");
 
@@ -37,23 +49,23 @@ int main(void)
         printf("\n");
         printf("> ");
         
-        char *byte_str;
-        scanf("%s", &byte_str);
+        int inp;
+        scanf("%d", &inp);
 
-        BYTE byte = new_byte(byte_str);
- 
         if (choice == 1) {
-            if (is_power_of_two(num)) {
+            if (is_power_of_two((BYTE)inp)) {
                 printf("PASSED.\n");
             } else {
                 printf("FAILED.\n");
             }
         } else if (choice == 2) {
-            if (all_bits_same(num)) {
+            if (all_bits_same((BYTE)inp)) {
                 printf("PASSED.\n");
             } else {
                 printf("FAILED.\n");
             }
+        } else if (choice == 3) {
+            printf("%d", (signed int)isolate_rightmost((BYTE)inp));
         } else {
             cont = 0;
         }

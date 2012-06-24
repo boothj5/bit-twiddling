@@ -6,4 +6,4 @@
 # *~
 *.swp
 *.o
-binary
+main
