@@ -1,5 +1,5 @@
 binary: 
-	gcc -o binary binary.c
+	gcc -o main main.c
 
 clean:
-	rm -f binary
+	rm -f main
