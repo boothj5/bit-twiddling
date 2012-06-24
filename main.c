@@ -9,7 +9,6 @@ BOOLEAN is_power_of_two(BYTE byte)
 {
     // x & (x-1)
     BYTE hack = byte & (byte - 0x01);
-
     return (hack == 0x00);
 }
 
@@ -17,7 +16,6 @@ BOOLEAN all_bits_same(BYTE byte)
 {
     // x & (x+1)
     BYTE hack = byte & (byte + 0x01);
-
     return (hack == 0x00);
 }
 
@@ -25,13 +23,12 @@ BYTE isolate_rightmost(BYTE byte)
 {
     // x & (-x)
     BYTE hack = byte & ( -byte);
-
     return hack;
 }
 
 int main(void)
 {
-    int cont = 1;
+    BOOLEAN cont = TRUE;
     
     while(cont) {
         printf("Choose a test:\n");
@@ -43,6 +40,8 @@ int main(void)
 
         int choice;
         scanf("%d", &choice);
+
+        if (choice > 3) break;
 
         printf("\n");
         printf("Enter a byte to test:\n");
@@ -67,7 +66,7 @@ int main(void)
         } else if (choice == 3) {
             printf("%d", (signed int)isolate_rightmost((BYTE)inp));
         } else {
-            cont = 0;
+            break;
         }
 
         printf("\n");
