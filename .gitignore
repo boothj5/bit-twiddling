@@ -5,4 +5,5 @@
 # *.[oa]
 # *~
 *.swp
+*.o
 binary

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define BYTE unsigned
+#include "binary.h"
 
 int is_power_of_two(BYTE byte)
 {
@@ -33,12 +33,14 @@ int main(void)
         scanf("%d", &choice);
 
         printf("\n");
-        printf("Enter a number to test:\n");
+        printf("Enter a byte to test:\n");
         printf("\n");
         printf("> ");
         
-        int num;
-        scanf("%d", &num);
+        char *byte_str;
+        scanf("%s", &byte_str);
+
+        BYTE byte = new_byte(byte_str);
  
         if (choice == 1) {
             if (is_power_of_two(num)) {
@@ -58,4 +60,6 @@ int main(void)
 
         printf("\n");
     }
+    
+    return 0;
 }
