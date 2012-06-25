@@ -41,6 +41,13 @@ BYTE identify_trailing_zeroes(BYTE byte)
     return hack;
 }
 
+BYTE identify_rightmost_set_and_trailing_unset(BYTE byte)
+{
+    // x ^ (x-1)
+    BYTE hack = byte ^ (byte - 0x01);
+    return hack;
+}
+
 char *byte_to_str(BYTE byte)
 {
     char *str = malloc(9 * sizeof(char));
@@ -69,13 +76,14 @@ int main(void)
         printf("    3: Isolate rightmost 1.\n");
         printf("    4: Isolate rightmost 0.\n");
         printf("    5: Identify trailing 0's.\n");
+        printf("    6: Identify rigthmost 1 and trailing 0's.\n");
         printf("\n");
         printf("> ");
 
         int choice;
         scanf("%d", &choice);
 
-        if (choice > 5) break;
+        if (choice > 6) break;
 
         printf("\n");
         printf("Enter a byte to test (as an int -127 to 128):\n");
@@ -105,6 +113,9 @@ int main(void)
             printf("%s -> %s", byte_to_str((BYTE)inp), byte_to_str((BYTE)result));
         } else if (choice == 5) {
             signed int result = (signed int)identify_trailing_zeroes((BYTE)inp);
+            printf("%s -> %s", byte_to_str((BYTE)inp), byte_to_str((BYTE)result));
+        } else if (choice == 6) {
+            signed int result = (signed int)identify_rightmost_set_and_trailing_unset((BYTE)inp);
             printf("%s -> %s", byte_to_str((BYTE)inp), byte_to_str((BYTE)result));
         } else {
             break;
