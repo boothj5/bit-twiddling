@@ -9,43 +9,43 @@
 BOOLEAN is_power_of_two(BYTE byte)
 {
     // x & (x-1)
-    BYTE hack = byte & (byte - 0x01);
-    return (hack == 0x00);
+    BYTE result = byte & (byte - 0x01);
+    return (result == 0x00);
 }
 
 BOOLEAN all_bits_same(BYTE byte)
 {
     // x & (x+1)
-    BYTE hack = byte & (byte + 0x01);
-    return (hack == 0x00);
+    BYTE result = byte & (byte + 0x01);
+    return (result == 0x00);
 }
 
 BYTE isolate_rightmost_set(BYTE byte)
 {
     // x & (-x)
-    BYTE hack = byte & (-byte);
-    return hack;
+    BYTE result = byte & (-byte);
+    return result;
 }
 
 BYTE isolate_rightmost_unset(BYTE byte)
 {
     // ¬x & (x+1)
-    BYTE hack = ~byte & (byte + 0x01);
-    return hack;
+    BYTE result = ~byte & (byte + 0x01);
+    return result;
 }
 
 BYTE identify_trailing_zeroes(BYTE byte)
 {
     // ¬x & (x-1)
-    BYTE hack = ~byte & (byte - 0x01);
-    return hack;
+    BYTE result = ~byte & (byte - 0x01);
+    return result;
 }
 
 BYTE identify_rightmost_set_and_trailing_unset(BYTE byte)
 {
     // x ^ (x-1)
-    BYTE hack = byte ^ (byte - 0x01);
-    return hack;
+    BYTE result = byte ^ (byte - 0x01);
+    return result;
 }
 
 char *byte_to_str(BYTE byte)
@@ -83,7 +83,7 @@ int main(void)
         int choice;
         scanf("%d", &choice);
 
-        if (choice > 6) break;
+        if (choice < 1 || choice > 6) break;
 
         printf("\n");
         printf("Enter a byte to test (as an int -127 to 128):\n");
