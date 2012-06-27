@@ -42,3 +42,10 @@ BYTE identify_rightmost_set_and_trailing_unset(BYTE byte)
     return result;
 }
 
+BYTE propogate_rightmost_set(BYTE byte)
+{
+    // x | (x-1)
+   BYTE result = byte | (byte - 0x01);
+   return result;
+}
+

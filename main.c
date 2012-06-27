@@ -15,13 +15,14 @@ int main(void)
         printf("    4: Isolate rightmost 0.\n");
         printf("    5: Identify trailing 0's.\n");
         printf("    6: Identify rigthmost 1 and trailing 0's.\n");
+        printf("    7: Propogate rigthmost set bit.\n");
         printf("\n");
         printf("> ");
 
         int choice;
         scanf("%d", &choice);
 
-        if (choice < 1 || choice > 6) break;
+        if (choice < 1 || choice > 7) break;
 
         printf("\n");
         printf("Enter a byte to test (as an int -127 to 128):\n");
@@ -54,6 +55,9 @@ int main(void)
             printf("%s -> %s", byte_to_str((BYTE)inp), byte_to_str((BYTE)result));
         } else if (choice == 6) {
             signed int result = (signed int)identify_rightmost_set_and_trailing_unset((BYTE)inp);
+            printf("%s -> %s", byte_to_str((BYTE)inp), byte_to_str((BYTE)result));
+        } else if (choice == 7) {
+            signed int result = (signed int)propogate_rightmost_set((BYTE)inp);
             printf("%s -> %s", byte_to_str((BYTE)inp), byte_to_str((BYTE)result));
         } else {
             break;
