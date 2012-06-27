@@ -53,6 +53,37 @@ void test_not_all_bits_same(void) // leading zeros are ignored
     assert_false(all_bits_same(str_to_byte("10101010")));
 }
 
+void test_isolate_rightmost_set(void)
+{
+    assert_string_equals(
+        "00000000", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "00000000"))));
+    assert_string_equals(
+        "00000001", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "00000001"))));
+    assert_string_equals(
+        "00000001", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "10000001"))));
+    assert_string_equals(
+        "00000001", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "11111111"))));
+    assert_string_equals(
+        "00001000", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "11011000"))));
+    assert_string_equals(
+        "00010000", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "00010000"))));
+    assert_string_equals(
+        "01000000", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "11000000"))));
+    assert_string_equals(
+        "10000000", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "10000000"))));
+    assert_string_equals(
+        "00100000", byte_to_str(isolate_rightmost_set(str_to_byte(
+        "10100000"))));
+}
+
 void register_basic_tests(void)
 {
     TEST_MODULE("basic tests");
@@ -60,4 +91,5 @@ void register_basic_tests(void)
     TEST(test_is_not_power_of_two);
     TEST(test_all_bits_same);
     TEST(test_not_all_bits_same);
+    TEST(test_isolate_rightmost_set);
 }
