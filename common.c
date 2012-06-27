@@ -19,3 +19,18 @@ char *byte_to_str(BYTE byte)
     return str;
 }
 
+BYTE str_to_byte(char *str)
+{
+    BYTE result = 0;
+
+    if (str[0] == '1') { result = result | 0x80; }
+    if (str[1] == '1') { result = result | 0x40; }
+    if (str[2] == '1') { result = result | 0x20; }
+    if (str[3] == '1') { result = result | 0x10; }
+    if (str[4] == '1') { result = result | 0x08; }
+    if (str[5] == '1') { result = result | 0x04; }
+    if (str[6] == '1') { result = result | 0x02; }
+    if (str[7] == '1') { result = result | 0x01; }
+
+    return result;
+}
