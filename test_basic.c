@@ -3,6 +3,11 @@
 #include "common.h"
 #include "twiddles.h"
 
+static void assert_twiddle(BYTE (*twiddle)(BYTE), char *input, char* output)
+{
+    assert_string_equals(output, byte_to_str(twiddle(str_to_byte(input))));
+}
+
 void test_is_power_of_two(void)
 {
     assert_true(is_power_of_two(str_to_byte("00000000")));
@@ -55,133 +60,165 @@ void test_not_all_bits_same(void) // leading zeros are ignored
 
 void test_isolate_rightmost_set(void)
 {
-    assert_string_equals(
-        "00000000", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "00000000"))));
-    assert_string_equals(
-        "00000001", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "00000001"))));
-    assert_string_equals(
-        "00000001", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "10000001"))));
-    assert_string_equals(
-        "00000001", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "11111111"))));
-    assert_string_equals(
-        "00001000", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "11011000"))));
-    assert_string_equals(
-        "00010000", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "00010000"))));
-    assert_string_equals(
-        "01000000", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "11000000"))));
-    assert_string_equals(
-        "10000000", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "10000000"))));
-    assert_string_equals(
-        "00100000", byte_to_str(isolate_rightmost_set(str_to_byte(
-        "10100000"))));
+    assert_twiddle(isolate_rightmost_set, 
+        "00000000", 
+        "00000000");
+
+    assert_twiddle(isolate_rightmost_set, 
+        "00000001", 
+        "00000001");
+
+    assert_twiddle(isolate_rightmost_set, 
+        "10000001", 
+        "00000001");
+
+    assert_twiddle(isolate_rightmost_set, 
+        "11111111",
+        "00000001");
+
+    assert_twiddle(isolate_rightmost_set,
+        "11011000", 
+        "00001000");
+
+    assert_twiddle(isolate_rightmost_set,
+        "00010000", 
+        "00010000");
+
+    assert_twiddle(isolate_rightmost_set,
+        "11000000", 
+        "01000000"); 
+
+    assert_twiddle(isolate_rightmost_set,
+        "10000000",
+        "10000000");
+
+    assert_twiddle(isolate_rightmost_set,
+        "10100000", 
+        "00100000");
 }
 
 void test_isolate_rightmost_unset(void)
 {
-    assert_string_equals(
-        "00000001", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "00000000"))));
-    assert_string_equals(
-        "00000010", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "00000001"))));
-    assert_string_equals(
-        "00000010", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "10000001"))));
-    assert_string_equals(
-        "00000001", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "00000100"))));
-    assert_string_equals(
-        "00000001", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "11011000"))));
-    assert_string_equals(
-        "00000100", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "00010011"))));
-    assert_string_equals(
-        "00001000", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "11000111"))));
-    assert_string_equals(
-        "01000000", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "10111111"))));
-    assert_string_equals(
-        "00010000", byte_to_str(isolate_rightmost_unset(str_to_byte(
-        "10101111"))));
+    assert_twiddle(isolate_rightmost_unset,
+        "00000000", 
+        "00000001");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "00000001",
+        "00000010");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "10000001",
+        "00000010");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "00000100",
+        "00000001");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "11011000", 
+        "00000001");
+
+    assert_twiddle(isolate_rightmost_unset, 
+        "00010011", 
+        "00000100");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "11000111",
+        "00001000");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "10111111", 
+        "01000000");
+
+    assert_twiddle(isolate_rightmost_unset,
+        "10101111", 
+        "00010000");
 }
 
 void test_identify_trailing_zeroes(void)
 {
-    assert_string_equals(
-        "00000000", byte_to_str(identify_trailing_zeroes(str_to_byte(
-        "11111111"))));
-    assert_string_equals(
-        "00000001", byte_to_str(identify_trailing_zeroes(str_to_byte(
-        "11111110"))));
-    assert_string_equals(
-        "00000011", byte_to_str(identify_trailing_zeroes(str_to_byte(
-        "11111100"))));
-    assert_string_equals(
-        "00000011", byte_to_str(identify_trailing_zeroes(str_to_byte(
-        "00000100"))));
-    assert_string_equals(
-        "00000111", byte_to_str(identify_trailing_zeroes(str_to_byte(
-        "00101000"))));
-    assert_string_equals(
-        "01111111", byte_to_str(identify_trailing_zeroes(str_to_byte(
-        "10000000"))));
+    assert_twiddle(identify_trailing_zeroes,
+        "11111111", 
+        "00000000");
+
+    assert_twiddle(identify_trailing_zeroes,
+        "11111110", 
+        "00000001");
+
+    assert_twiddle(identify_trailing_zeroes,
+        "11111100",
+        "00000011");
+
+    assert_twiddle(identify_trailing_zeroes,
+        "00000100",
+        "00000011");
+
+    assert_twiddle(identify_trailing_zeroes,
+        "00101000",
+        "00000111");
+
+    assert_twiddle(identify_trailing_zeroes,
+        "10000000",
+        "01111111");
 }
 
 void test_identify_rightmost_set_and_trailing_zeroes(void)
 {
-    assert_string_equals(
-        "11111111", byte_to_str(identify_rightmost_set_and_trailing_unset(str_to_byte(
-        "00000000"))));
-    assert_string_equals(
-        "00000001", byte_to_str(identify_rightmost_set_and_trailing_unset(str_to_byte(
-        "11111111"))));
-    assert_string_equals(
-        "00011111", byte_to_str(identify_rightmost_set_and_trailing_unset(str_to_byte(
-        "11110000"))));
-    assert_string_equals(
-        "00011111", byte_to_str(identify_rightmost_set_and_trailing_unset(str_to_byte(
-        "10010000"))));
-    assert_string_equals(
-        "00111111", byte_to_str(identify_rightmost_set_and_trailing_unset(str_to_byte(
-        "10100000"))));
+    assert_twiddle(identify_rightmost_set_and_trailing_unset,
+        "00000000", 
+        "11111111");
+
+    assert_twiddle(identify_rightmost_set_and_trailing_unset,
+        "11111111", 
+        "00000001");
+
+    assert_twiddle(identify_rightmost_set_and_trailing_unset,
+        "11110000",
+        "00011111");
+
+    assert_twiddle(identify_rightmost_set_and_trailing_unset,
+        "10010000", 
+        "00011111");
+
+    assert_twiddle(identify_rightmost_set_and_trailing_unset,
+        "10100000", 
+        "00111111");
 }
 
 void test_propogate_rightmost_set(void)
 {
-    assert_string_equals(
-        "11111111", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "00000000"))));
-    assert_string_equals(
-        "11111111", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "11111111"))));
-    assert_string_equals(
-        "00000001", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "00000001"))));
-    assert_string_equals(
-        "00000011", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "00000011"))));
-    assert_string_equals(
-        "00000011", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "00000010"))));
-    assert_string_equals(
-        "00101111", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "00101000"))));
-    assert_string_equals(
-        "01111111", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "01100000"))));
-    assert_string_equals(
-        "11111111", byte_to_str(propogate_rightmost_set(str_to_byte(
-        "10000000"))));
+    assert_twiddle(propogate_rightmost_set,
+        "00000000", 
+        "11111111");
+
+    assert_twiddle(propogate_rightmost_set,
+        "11111111",
+        "11111111");
+
+    assert_twiddle(propogate_rightmost_set,
+        "00000001", 
+        "00000001");   
+
+    assert_twiddle(propogate_rightmost_set,
+        "00000011", 
+        "00000011");
+
+    assert_twiddle(propogate_rightmost_set,
+        "00000010", 
+        "00000011");
+
+    assert_twiddle(propogate_rightmost_set,
+        "00101000", 
+        "00101111");
+
+    assert_twiddle(propogate_rightmost_set,
+        "01100000",
+        "01111111");   
+
+    assert_twiddle(propogate_rightmost_set,
+        "10000000",
+        "11111111");
 }
 
 
