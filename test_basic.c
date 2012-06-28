@@ -156,6 +156,35 @@ void test_identify_rightmost_set_and_trailing_zeroes(void)
         "10100000"))));
 }
 
+void test_propogate_rightmost_set(void)
+{
+    assert_string_equals(
+        "11111111", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "00000000"))));
+    assert_string_equals(
+        "11111111", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "11111111"))));
+    assert_string_equals(
+        "00000001", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "00000001"))));
+    assert_string_equals(
+        "00000011", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "00000011"))));
+    assert_string_equals(
+        "00000011", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "00000010"))));
+    assert_string_equals(
+        "00101111", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "00101000"))));
+    assert_string_equals(
+        "01111111", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "01100000"))));
+    assert_string_equals(
+        "11111111", byte_to_str(propogate_rightmost_set(str_to_byte(
+        "10000000"))));
+}
+
+
 void register_basic_tests(void)
 {
     TEST_MODULE("basic tests");
@@ -167,4 +196,5 @@ void register_basic_tests(void)
     TEST(test_isolate_rightmost_unset);
     TEST(test_identify_trailing_zeroes);
     TEST(test_identify_rightmost_set_and_trailing_zeroes);
+    TEST(test_propogate_rightmost_set);
 }
